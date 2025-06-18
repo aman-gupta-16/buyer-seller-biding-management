@@ -1,28 +1,31 @@
-import Link from "next/link";
+import React from 'react';
 
 interface ProjectCardProps {
-  id: number;
-  title: string;
-  description: string;
-  budgetMin: number;
-  budgetMax: number;
-  deadline: string;
-  status: string;
+  project: {
+    id: number;
+    title: string;
+    description: string;
+    budgetMin: string;
+    budgetMax: string;
+    deadline: string;
+  };
+  onViewDetails: () => void;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, description, budgetMin, budgetMax, deadline, status }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, onViewDetails }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-      <h2 className="text-xl font-semibold">{title}</h2>
-      <p className="text-gray-600">{description}</p>
-      <p className="mt-2">Budget: ${budgetMin} - ${budgetMax}</p>
-      <p>Deadline: {new Date(deadline).toLocaleDateString()}</p>
-      <p>Status: <span className="font-semibold">{status}</span></p>
-      <Link href={`/seller/project/${id}`}>
-        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-          View Details
-        </button>
-      </Link>
+    <div className="border rounded-2xl p-4 shadow hover:shadow-lg transition duration-300">
+      <h2 className="text-xl font-bold mb-2">{project.title}</h2>
+      <p className="mb-2">{project.description}</p>
+      <p className="mb-1"><span className="font-semibold">Budget Min:</span> {project.budgetMin}</p>
+            <p className="mb-1"><span className="font-semibold">Budget Max:</span> {project.budgetMax}</p>
+      <p className="mb-3"><span className="font-semibold">Deadline:</span> {new Date(project.deadline).toLocaleDateString()}</p>
+      <button 
+        onClick={onViewDetails} 
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        View Details
+      </button>
     </div>
   );
 };
