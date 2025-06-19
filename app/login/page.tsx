@@ -33,13 +33,23 @@ const Login = () => {
     }
   };
 
+  const handleRegister = () => {
+    const role = confirm('Are you registering as a Buyer?\n\nClick "OK" for Buyer or "Cancel" for Seller.');
+
+    if (role) {
+      router.push('/buyer/register');
+    } else {
+      router.push('/seller/register');
+    }
+  };
+
   if (loading) return <Loader />;
 
   return (
     <>
       <Toaster position="top-right" />
 
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-purple-100 via-purple-50 to-white p-4">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md"
@@ -78,6 +88,17 @@ const Login = () => {
           >
             Login
           </button>
+
+          <div className="mt-6 text-center">
+            <span className="text-gray-600">Don't have an account? </span>
+            <button
+              type="button"
+              onClick={handleRegister}
+              className="text-purple-600 font-semibold hover:underline"
+            >
+              Register
+            </button>
+          </div>
         </form>
       </div>
     </>

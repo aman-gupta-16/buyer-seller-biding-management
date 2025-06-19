@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { toast, Toaster } from 'react-hot-toast';
 
 const BuyerRegister = () => {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const { register, handleSubmit, formState: {  isSubmitting } } = useForm();
   const router = useRouter();
 
   const onSubmit = async (data: any) => {
@@ -38,7 +38,6 @@ const BuyerRegister = () => {
                 placeholder="Name"
                 className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
-              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
             </div>
 
             <div>
@@ -54,7 +53,6 @@ const BuyerRegister = () => {
                 placeholder="Email"
                 className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
-              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
             </div>
 
             <div>
@@ -64,7 +62,6 @@ const BuyerRegister = () => {
                 placeholder="Password"
                 className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
-              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
             </div>
           </div>
 

@@ -7,27 +7,39 @@ import { ArrowRight } from "lucide-react";
 
 interface DecodedToken {
   role: string;
+  exp:any;
 }
 
 export default function Home() {
   const router = useRouter();
   const [role, setRole] = useState("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decoded: DecodedToken = jwtDecode(token);
-        setRole(decoded.role.toUpperCase()); 
-      } catch (error) {
-        console.error("Invalid token");
+useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    try {
+      const decoded: DecodedToken = jwtDecode(token);
+      console.log(decoded)
+      const currentTime = Math.floor(Date.now() / 1000); 
+      if (decoded.exp && decoded.exp < currentTime) {
+        console.warn("Token expired");
         localStorage.removeItem("token");
         router.push("/login");
+        return;
       }
-    } else {
-      setRole("");
+
+      setRole(decoded.role.toUpperCase());
+    } catch (error) {
+      console.error("Invalid token");
+      localStorage.removeItem("token");
+      router.push("/login");
     }
-  }, [router]);
+  } else {
+    setRole("");
+  }
+}, [router]);
+
 
   let href = "/login";
   let buttonText = "Go to Login";
